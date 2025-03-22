@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XML Parser Test</title>
+</head>
+<body>
+    <h2>XML Test Input</h2>
+    <form action="xml_parser.php" method="post">
+        <textarea name="data" rows="10" cols="50">
+<?xml version="1.0"?>
+<root>
+    <data>
+        <title>Sample Title</title>
+        <desc>Sample Description</desc>
+    </data>
+</root>
+        </textarea><br>
+        <input type="submit" value="Parse XML">
+    </form>
+    
+    <h3>Test Payloads</h3>
+    <button onclick="loadPayload('valid')">Valid XML</button>
+    <button onclick="loadPayload('xxe')">XXE Attack</button>
+
+    <script>
+    function loadPayload(type) {
+        const payloads = {
+            valid: `<?xml version="1.0"?>
+<root>
+    <data>
+        <title>Safe Content</title>
+        <desc>Normal payload</desc>
+    </data>
+</root>`,
+
+            xxe: `<?xml version="1.0"?>
+<!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<root>
+    <data>
+        <title>&xxe;</title>
+        <desc>Malicious payload</desc>
+    </data>
+</root>`
+        };
+        
+        document.querySelector('textarea').value = payloads[type];
+    }
+    </script>
+</body>
+</html>
