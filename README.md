@@ -5,7 +5,7 @@ git clone https://github.com/rogueloop/intigriti-xxe-challenge.git
 cd intigriti-xxe-challenge
 php -S localhost:8000
 ```
-
+Open `http://localhost:8000/xml_parser.php`
 ## challenge 
 ![Challenge Image](./486066540_18220552186292613_50405887802685493_n.jpeg)
 
